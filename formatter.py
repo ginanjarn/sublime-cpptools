@@ -7,11 +7,9 @@ def diff_sanity_check(a, b):
 
 class CppformatCommand(sublime_plugin.TextCommand):
 	def run(self, edit):
-		path = os.path.dirname(os.path.abspath(__file__))
-		clang_format = os.path.join(path,"LLVM","bin","clang-format")
 		view = self.view
 		src = view.substr(sublime.Region(0, view.size()))
-		gofmt = subprocess.Popen([clang_format],
+		gofmt = subprocess.Popen(["clang-format"],
 			stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 		sout, serr = gofmt.communicate(src.encode())
 		if gofmt.returncode != 0:
